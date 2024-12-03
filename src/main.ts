@@ -25,11 +25,9 @@ async function sendTeamsNotification(title: string, body: string, webhookUrl: st
        "attachments":[
           {
              "contentType": "application/vnd.microsoft.card.adaptive",
-             "contentUrl": null,
              "content": {
-                "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
-                "type":"AdaptiveCard",
-                "version":"1.2",
+                "type": "AdaptiveCard",
+                "version": "1.3",
                 "body":[
                     {
 						"type": "TextBlock",
@@ -41,22 +39,23 @@ async function sendTeamsNotification(title: string, body: string, webhookUrl: st
                     },
 					{
 						"type": "TextBlock",
-						"text": "${body} - <at>Devs</at> - TEST",
+						"text": "${body}",
 						"wrap": true
 					}
                 ],
 				"msteams": {
-					"entities": [
-						{
-							"type": "mention",
-							"text": "<at>Devs</at>",
-							"mentioned": {
-								"id": "tilqeHcVY",
-								"name": "Devs"
-							}
-						}
-					]
-				}
+                    "entities": [
+                        {
+                            "type": "mention",
+                            "text": "<at>Devs</at>",
+                            "mentioned": {
+                                "id": "tilqeHcVY",
+                                "name": "Devs",
+                                "type": "tag"
+                            }
+                        }
+                    ]
+                }
              }
           }
        ]
