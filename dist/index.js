@@ -1708,7 +1708,7 @@ function sendTeamsNotification(title, author, commitDescription, prLink, mention
 					},
 					{
 						"type": "TextBlock",
-						"text": "${commitDescription}",
+						"text": "<at>Tyler</at> - ${commitDescription}",
 						"wrap": true
 					}
 				],
