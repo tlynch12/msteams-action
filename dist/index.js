@@ -1654,9 +1654,11 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const title = core.getInput("TITLE", { required: true });
-            const body = core.getInput("BODY", { required: true });
+            const author = core.getInput("AUTHOR", { required: true });
+            const commitDescription = core.getInput("COMMIT", { required: true });
+            const prLink = core.getInput("LINK", { required: true });
             const teamsWebhook = core.getInput("MS_TEAMS_WEBHOOK", { required: true });
-            sendTeamsNotification(title, body, teamsWebhook);
+            sendTeamsNotification(title, author, commitDescription, prLink, teamsWebhook);
         }
         catch (err) {
             core.error("❌ Failed");
@@ -1669,7 +1671,7 @@ function main() {
  * @param title
  * @param body
  */
-function sendTeamsNotification(title, body, webhookUrl) {
+function sendTeamsNotification(title, author, commitDescription, prLink, webhookUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const data = `{
        "type":"message",
@@ -1677,23 +1679,45 @@ function sendTeamsNotification(title, body, webhookUrl) {
           {
              "contentType": "application/vnd.microsoft.card.adaptive",
              "content": {
-                "type": "AdaptiveCard",
-                "version": "1.3",
-                "body":[
-                    {
-						"type": "TextBlock",
-						"size": "medium",
-						"weight": "bolder",
-						"style": "heading",
-						"wrap": true,
-						"text": "${title}"
-                    },
+				"type": "AdaptiveCard",
+				"body": [
 					{
 						"type": "TextBlock",
-						"text": "${body}",
+						"size": "Medium",
+						"weight": "Bolder",
+						"text": "${title}"
+					},
+					{
+						"type": "ColumnSet",
+						"columns": [
+							{
+								"type": "Column",
+								"items": [
+									{
+										"type": "TextBlock",
+										"spacing": "None",
+										"text": "${author}",
+										"isSubtle": true,
+										"wrap": true
+									}
+								],
+								"width": "stretch"
+							}
+						]
+					},
+					{
+						"type": "TextBlock",
+						"text": "${commitDescription}",
 						"wrap": true
 					}
-                ],
+				],
+				"actions": [
+					{
+						"type": "Action.OpenUrl",
+						"title": "View",
+						"url": "${prLink}"
+					}
+				],
 				"msteams": {
                     "entities": [
                         {
@@ -1706,8 +1730,10 @@ function sendTeamsNotification(title, body, webhookUrl) {
                             }
                         }
                     ]
-                }
-             }
+                },
+				"$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+				"version": "1.6"
+			}
           }
        ]
     }`;

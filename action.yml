@@ -4,8 +4,14 @@ inputs:
   TITLE:
     description: 'Title of the message'
     required: true
-  BODY:
-    description: 'Body of the message'
+  AUTHOR:
+    description: 'author of the message'
+    required: true
+  COMMIT:
+    description: 'commit message'
+    required: true
+  LINK:
+    description: 'link of the pr'
     required: true
   MS_TEAMS_WEBHOOK:  
     description: 'If set, A MS Teams notification will be sent to this webhook'
