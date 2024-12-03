@@ -41,7 +41,7 @@ async function sendTeamsNotification(title: string, body: string, webhookUrl: st
                     },
 					{
 						"type": "TextBlock",
-						"text": "${body}",
+						"text": "${body} - <at>Devs</at> - TEST",
 						"wrap": true
 					}
                 ],
