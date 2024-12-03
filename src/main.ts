@@ -20,7 +20,47 @@ async function main() {
  * @param body
  */
 async function sendTeamsNotification(title: string, body: string, webhookUrl: string) {
-	const data = `{ '@context': 'http://schema.org/extensions', '@type': 'MessageCard', 'title': '${title}', 'text': '${body}' }`;
+	const data = `{
+       "type":"message",
+       "attachments":[
+          {
+             "contentType": "application/vnd.microsoft.card.adaptive",
+             "contentUrl": null,
+             "content": {
+                "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
+                "type":"AdaptiveCard",
+                "version":"1.2",
+                "body":[
+                    {
+						"type": "TextBlock",
+						"size": "medium",
+						"weight": "bolder",
+						"style": "heading",
+						"wrap": true,
+						"text": "${title}"
+                    },
+					{
+						"type": "TextBlock",
+						"text": "${body}",
+						"wrap": true
+					}
+                ],
+				"msteams": {
+					"entities": [
+						{
+							"type": "mention",
+							"text": "<at>Devs</at>",
+							"mentioned": {
+								"id": "tilqeHcVY",
+								"name": "Devs"
+							}
+						}
+					]
+				}
+             }
+          }
+       ]
+    }`;
 	request(webhookUrl, {
 		method: "POST",
 		body: data
