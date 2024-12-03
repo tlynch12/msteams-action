@@ -1708,7 +1708,7 @@ function sendTeamsNotification(title, author, commitDescription, prLink, mention
 					},
 					{
 						"type": "TextBlock",
-						"text": "<at>Tyler</at> - ${commitDescription}",
+						"text": "<at>Pull Request Review</at> - ${commitDescription}",
 						"wrap": true
 					}
 				],
@@ -1731,13 +1731,15 @@ function sendTeamsNotification(title, author, commitDescription, prLink, mention
                             }
                         },
 						{
-                            "type": "mention",
-                            "text": "<at>Tyler</at>",
-                            "mentioned": {
-                                "id": "${mentionId}",
-                                "name": "Tyler"
-                            }
-                        }
+							"type": "mention",
+							"text": "<at>Pull Request Review</at>",
+							"mentioned": {
+							"id": "${mentionId}",
+							"displayName": "Pull Request Review",
+							"conversationIdentityType": "channel",
+							"conversationIdentityType@odata.type": "#Microsoft.Teams.GraphSvc.conversationIdentityType"
+							}
+						}
                     ]
                 },
 				"$schema": "http://adaptivecards.io/schemas/adaptive-card.json",

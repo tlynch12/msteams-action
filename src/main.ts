@@ -57,7 +57,7 @@ async function sendTeamsNotification(title: string, author: string, commitDescri
 					},
 					{
 						"type": "TextBlock",
-						"text": "<at>Tyler</at> - ${commitDescription}",
+						"text": "<at>Pull Request Review</at> - ${commitDescription}",
 						"wrap": true
 					}
 				],
@@ -80,13 +80,15 @@ async function sendTeamsNotification(title: string, author: string, commitDescri
                             }
                         },
 						{
-                            "type": "mention",
-                            "text": "<at>Tyler</at>",
-                            "mentioned": {
-                                "id": "${mentionId}",
-                                "name": "Tyler"
-                            }
-                        }
+							"type": "mention",
+							"text": "<at>Pull Request Review</at>",
+							"mentioned": {
+							"id": "${mentionId}",
+							"displayName": "Pull Request Review",
+							"conversationIdentityType": "channel",
+							"conversationIdentityType@odata.type": "#Microsoft.Teams.GraphSvc.conversationIdentityType"
+							}
+						}
                     ]
                 },
 				"$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
