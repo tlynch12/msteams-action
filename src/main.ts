@@ -57,7 +57,7 @@ async function sendTeamsNotification(title: string, author: string, commitDescri
 					},
 					{
 						"type": "TextBlock",
-						"text": "${commitDescription}",
+						"text": "<at>Tyler</at> - ${commitDescription}",
 						"wrap": true
 					}
 				],
