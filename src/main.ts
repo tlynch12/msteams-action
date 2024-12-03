@@ -7,8 +7,9 @@ async function main() {
 		const author: string = core.getInput("AUTHOR", { required: true });
 		const commitDescription: string = core.getInput("COMMIT", { required: true });
 		const prLink: string = core.getInput("LINK", { required: true });
+		const mentionId: string = core.getInput("MENTION_ID", { required: true });
 		const teamsWebhook: string = core.getInput("MS_TEAMS_WEBHOOK", { required: true });
-		sendTeamsNotification(title, author, commitDescription, prLink, teamsWebhook);
+		sendTeamsNotification(title, author, commitDescription, prLink, mentionId, teamsWebhook);
 	} catch (err) {
 		core.error("❌ Failed");
 		core.setFailed(err.message);
@@ -21,7 +22,7 @@ async function main() {
  * @param title
  * @param body
  */
-async function sendTeamsNotification(title: string, author: string, commitDescription: string, prLink: string,  webhookUrl: string) {
+async function sendTeamsNotification(title: string, author: string, commitDescription: string, prLink: string, mentionId: string, webhookUrl: string) {
 	const data = `{
        "type":"message",
        "attachments":[
@@ -73,9 +74,17 @@ async function sendTeamsNotification(title: string, author: string, commitDescri
                             "type": "mention",
                             "text": "<at>Devs</at>",
                             "mentioned": {
-                                "id": "tilqeHcVY",
+                                "id": "${mentionId}",
                                 "name": "Devs",
                                 "type": "tag"
+                            }
+                        },
+						{
+                            "type": "mention",
+                            "text": "<at>Tyler</at>",
+                            "mentioned": {
+                                "id": "${mentionId}",
+                                "name": "Tyler"
                             }
                         }
                     ]
@@ -87,10 +96,10 @@ async function sendTeamsNotification(title: string, author: string, commitDescri
        ]
     }`;
 	core.info(`Sending MS Teams notification with - ${data}`);
-	// request(webhookUrl, {
-	// 	method: "POST",
-	// 	body: data
-	// })
+	request(webhookUrl, {
+		method: "POST",
+		body: data
+	})
 }
 
 main();
