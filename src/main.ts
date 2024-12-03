@@ -86,10 +86,11 @@ async function sendTeamsNotification(title: string, author: string, commitDescri
           }
        ]
     }`;
-	request(webhookUrl, {
-		method: "POST",
-		body: data
-	})
+	core.info(`Sending MS Teams notification with - ${data}`);
+	// request(webhookUrl, {
+	// 	method: "POST",
+	// 	body: data
+	// })
 }
 
 main();
